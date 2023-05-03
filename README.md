@@ -1,12 +1,5 @@
-# pseudo-terminal-go
+# Otter 🦦 Shell
 
-## Install
-```
-go get github.com/carmark/pseudo-terminal-go/terminal
-```
+Otter 🦦 Shell is a shell written in Go. It is a work in progress.
 
-## Run a test
-```
-go build test.go
-./test
-```
+Thanks to carmark for the perfect preparation with [this](https://github.com/carmark/pseudo-terminal-go) project.
