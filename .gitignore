@@ -1,0 +1,17 @@
+# GoLang
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+go.work
+
+# Build output
+build/
+
+# VS Code
+.vscode/*
+.history/
+*.vsix
