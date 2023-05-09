@@ -1,7 +1,3 @@
-// Copyright 2011 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
 package terminal
 
 import (
@@ -9,27 +5,15 @@ import (
 	"io"
 	"os"
 	"sync"
+
+	"github.com/k3y0708/otter/maths"
 )
-
-func max(i, j int) int {
-	if i > j {
-		return i
-	}
-	return j
-}
-
-func min(i, j int) int {
-	if i < j {
-		return i
-	}
-	return j
-}
 
 // historyIdxValue returns an index into a valid range of history
 func historyIdxValue(idx int, history [][]byte) int {
 	out := idx
-	out = min(len(history), out)
-	out = max(0, out)
+	out = maths.Min(len(history), out)
+	out = maths.Max(0, out)
 	return out
 }
 
@@ -457,7 +441,7 @@ func (t *Terminal) handleKey(key int) (line string, ok bool) {
 		if t.echo {
 			t.writeLine(t.line[t.pos-1:])
 		}
-		t.pos ++
+		t.pos++
 		t.moveCursorToPos(t.pos)
 		t.queue([]byte("\r\n"))
 		t.line = make([]byte, 0, 0)
@@ -603,6 +587,13 @@ func (t *Terminal) ReadLine() (line string, err error) {
 	return t.readLine()
 }
 
+func (t *Terminal) AddToHistory(line string) {
+	b := []byte(line)
+	h := make([]byte, len(b))
+	copy(h, b)
+	t.history = append(t.history, h)
+}
+
 func (t *Terminal) readLine() (line string, err error) {
 	// t.lock must be held at this point
 
@@ -642,10 +633,7 @@ func (t *Terminal) readLine() (line string, err error) {
 		if lineOk {
 			if t.echo { //&& len(line) > 0 {
 				// don't put passwords into history...
-				b := []byte(line)
-				h := make([]byte, len(b))
-				copy(h, b)
-				t.history = append(t.history, h)
+				t.AddToHistory(line)
 			}
 			return
 		}
@@ -681,22 +669,6 @@ func (t *Terminal) SetSize(width, height int) {
 	defer t.lock.Unlock()
 
 	t.termWidth, t.termHeight = width, height
-}
-
-func (t *Terminal) SetHistory(h []string) {
-	// t.history = make([][]byte, len(h))
-	// for i := range h {
-	// 	t.history[i] = []byte(h[i])
-	// }
-	// //	t.historyIdx = len(h)
-}
-
-func (t *Terminal) GetHistory() (h []string) {
-	// h = make([]string, len(t.history))
-	// for i := range t.history {
-	// 	h[i] = string(t.history[i])
-	// }
-	return
 }
 
 type shell struct {
