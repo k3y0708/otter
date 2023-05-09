@@ -230,8 +230,8 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	otterHistory := userhome + OtterHistory
-	otterRC := userhome + OtterRC
+	otterHistory := userhome + "/" + OtterHistory
+	otterRC := userhome + "/" + OtterRC
 
 	term, err := terminal.NewWithStdInOut()
 	if err != nil {
