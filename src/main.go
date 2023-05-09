@@ -16,6 +16,8 @@ const (
 	Prompt       = "otter> "
 	OtterHistory = ".otterhistory"
 	OtterRC      = ".otterrc"
+	NAME         = "minify_tf"
+	VERSION      = "v0.0.1"
 )
 
 func executeCommand(cmd string, args []string) {
@@ -36,6 +38,21 @@ func executeCommand(cmd string, args []string) {
 		}
 
 		sourceFile(args[0])
+	case "about":
+		nv := NAME + " " + VERSION
+		nvLen := len(nv)
+		spacesLen := 26 - nvLen
+		for i := 0; i < spacesLen; i++ {
+			nv += " "
+		}
+
+		fmt.Println("+----------------------------+")
+		fmt.Println("| " + nv + "|")
+		fmt.Println("| by @k3y0708                |")
+		fmt.Println("| https://github.com/k3y0708 |")
+		fmt.Println("+----------------------------+")
+	case "version":
+		fmt.Println(VERSION)
 	default:
 		//Check if command is a file
 		cmd, err := findCommand(cmd)
