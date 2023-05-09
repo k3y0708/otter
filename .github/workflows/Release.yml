@@ -21,7 +21,7 @@ jobs:
         run: echo "::set-output name=version::$(./otter version)"
         id: version
       - name: build artifacts
-        run: make deploy_all
+        run: make compile_all
         shell: bash
       - name: release
         uses: actions/create-release@v1
