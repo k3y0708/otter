@@ -40,7 +40,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./out/otter-linux-amd64
+          asset_path: ./build/otter-linux-amd64
           asset_name: otter-linux-amd64
           asset_content_type: application/x-executable
       - name: upload mac intel64 artifact
@@ -49,6 +49,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./out/otter-mac-amd64
+          asset_path: ./build/otter-mac-amd64
           asset_name: otter-mac-amd64
           asset_content_type: application/x-mach-binary
